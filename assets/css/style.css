@@ -112,3 +112,45 @@ article {
     -moz-box-shadow: none;
     box-shadow: none; 
 }
+
+.grid__block {
+    border-radius: 5px;
+    margin-top: 5%;
+    display: grid;
+    gap: 20px;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.content__img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.content__header {
+    color: inherit;
+    font-size: 1.5rem;
+    margin: 2% 0 0 0;
+}
+
+.content__text {
+    color: inherit;
+    font-size: 1.25rem;
+    margin: 2% 0 0 0;
+}
+
+footer {
+    width: 40%;
+    border-radius: 15px 15px 0 0;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    display: flex;
+    background-color: var(--color__text);
+    color: var(--color__bg);
+    font-weight: 800;
+    justify-content: center;
+    align-items: center;
+    gap: 35px;
+    margin-top: 3%;
+    padding: 2%;
+}
