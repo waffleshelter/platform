@@ -8,21 +8,13 @@
 </head>
 <body>
     <div class="container">
-        <header>
-            <h2 class="logo">Логотип</h2>
-            <nav>
-                <a href="#!" class="nav__button">Главная</a>
-                <a href="#!" class="nav__button">Регистрация</a>
-                <a href="#!" class="nav__button">Вход</a>
-                
-            </nav>
-        </header>
+        <?php include 'header.php'; ?>
         <article>
             <h1 class="main__title">Платформа для проведения мероприятий</h1>
             <h2 class="second__title">Место для организации мероприятий и управления ими</h2>
             <div class="button__block">
-                <a href="#!" class="button">Регистрация</a>
-                <a href="#!" class="button">Вход</a>
+                <a href="reg.php" class="button">Регистрация</a>
+                <a href="login.php" class="button">Вход</a>
             </div>
             <div class="grid__block">
                 <div class="content__block">
@@ -48,11 +40,7 @@
             </div>
             
         </article>
-        <footer>
-            <a href="#!" class="link__footer">VK</a>
-            <a href="#!" class="link__footer">TG</a>
-            <a href="#!" class="link__footer">ICQ</a>
-        </footer>
+        <?php include 'footer.php'; ?>
     </div>
 </body>
 </html>
