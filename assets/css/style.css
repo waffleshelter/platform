@@ -172,7 +172,7 @@ footer {
     font-size: 1.5rem;
 }
 
-form input {
+.form input {
     margin-top: 2%;
     border-radius: 5px;
     width: 100%;
@@ -180,4 +180,27 @@ form input {
     background-color: var(--color__text);
     color: var(--color__bg);
     border: 2px solid var(--color__bg);
+}
+
+.form input::placeholder {
+    font-size: 1rem;
+}
+
+.form input[type="submit"] {
+    font-size: 1rem;
+
+}
+
+table {
+    width: 70%;
+    padding: 3%;
+    border: 3px solid var(--color__bg);
+    border-radius: 15px;
+}
+
+td {
+    background-color: var(--color__bg);
+    color: var(--color__text);
+    padding: 2%;
+    border-radius: 5px;
 }
