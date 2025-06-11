@@ -6,21 +6,23 @@ $user = 'root';
 $pass = '';
 $link = mysqli_connect($host, $user, $pass, $db) or die('Невозможно связаться с БД! '.mysqli_error($link));
 
+// Функция для получения аутпута из базы данных
 function dbTableResult($query) {
     global $link;
     $result = mysqli_query($link, $query);
+    // Проверка на случай INSERT INTO
     if(is_bool($result) == TRUE) {
         return 0;
     } else {
-        if($tbl["username"] != "") {
-            return $tbl["username"];
-        } else {
             while($tbl = mysqli_fetch_array($result)) {
+                // Проверка на случай авторизации
+                if($tbl["username"] != "") {
+                    return $tbl["username"];
+                }
+                // Вывод для таблицы администратора
                 print_r("<tr><td>".$tbl['event_name']."</td><td>".$tbl['event_date']."</td><td>".$tbl['amount']."</td></tr>");
             }
-            
         }
-    }
         
 }
     
@@ -28,13 +30,15 @@ function dbTableResult($query) {
    
 ob_start();
 if(!empty($_GET)) {
-    // Приём данных для авторизации
-    $username = $_GET["username"];
-    $password_first = $_GET["password_first"];
-    //Приём данных для работы с формой мероприятий 
+    
+    
     if(isset($_GET["username"])) {
+        // Приём данных для авторизации
+        $username = $_GET["username"];
+        $password_first = $_GET["password_first"];
         $a = dbTableResult("SELECT * FROM users WHERE username = '$username' AND password = '$password_first'");
     } elseif(isset($_GET["event_name"])) {
+        // Приём данных для создания ивента
         $event_name = $_GET["event_name"];
         $event_date = $_GET["event_date"];
         $amount = $_GET["amount"];
@@ -43,9 +47,8 @@ if(!empty($_GET)) {
             print_r("Данные успешно записаны");
         }
     }
-   
+    // Проверка на совпадение введённых данных со значениями из БД и дальнейший вход в систему с началом сессии
     if($a == $username) {
-        // print_r("Данные совпали!");
         if(!isset($_COOKIE["user_login"])) {
             setcookie("user_login", $a, time() + 3600);
         }

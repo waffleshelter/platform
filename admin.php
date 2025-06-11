@@ -3,6 +3,7 @@
 ?>
 <?php print_r($result); ?>
 <table>
+    <h1>Панель администратора</h1>
     <thead>
         <tr>
             <th>Событие</th>
@@ -11,6 +12,6 @@
         </tr>
     </thead>
     <tbody>
-        <?php dbTableResult("SELECT * FROM events WHERE id > 0"); ?>
+        <?php dbTableResult("SELECT * FROM events"); ?>
     </tbody>
 </table>
