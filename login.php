@@ -1,7 +1,7 @@
 <?php 
-// setcookie("user_login", "");
+setcookie("user_login", "");
 $host = 'localhost';
-$db = 'platform';
+$db = 'event_management';
 $user = 'root';
 $pass = '';
 $link = mysqli_connect($host, $user, $pass, $db) or die('Невозможно связаться с БД! '.mysqli_error($link));
@@ -13,14 +13,16 @@ function dbTableResult($query) {
     // Проверка на случай INSERT INTO
     if(is_bool($result) == TRUE) {
         return 0;
+    } elseif(is_int($result) == TRUE) {
+        return $result;
     } else {
             while($tbl = mysqli_fetch_array($result)) {
                 // Проверка на случай авторизации
                 if($tbl["username"] != "") {
-                    return $tbl["username"];
+                    return [$tbl["username"], $tbl["user_id"], $tbl["phone_number"]];
                 }
                 // Вывод для таблицы администратора
-                print_r("<tr><td>".$tbl['event_name']."</td><td>".$tbl['event_date']."</td><td>".$tbl['amount']."</td></tr>");
+                return [$tbl['event_name'], $tbl['event_date'], $tbl['participants_count'], $tbl['organizer_id']];
             }
         }
         
@@ -41,16 +43,18 @@ if(!empty($_GET)) {
         // Приём данных для создания ивента
         $event_name = $_GET["event_name"];
         $event_date = $_GET["event_date"];
-        $amount = $_GET["amount"];
-        $b = dbTableResult("INSERT INTO events (event_name, event_date, amount) VALUES ('$event_name', '$event_date', '$amount')");
+        $username_cookie = $_COOKIE["user_login"];
+        $participants_count = $_GET["participants_count"];
+        $organizer_id = dbTableResult("SELECT * FROM users WHERE username = '$username_cookie'");
+        $b = dbTableResult("INSERT INTO events (event_name, event_date, participants_count, organizer_id) VALUES ('$event_name', '$event_date', '$participants_count', '$organizer_id[1]')");
         if($b == 0) {
             print_r("Данные успешно записаны");
         }
     }
     // Проверка на совпадение введённых данных со значениями из БД и дальнейший вход в систему с началом сессии
-    if($a == $username) {
+    if($a[0] == $username) {
         if(!isset($_COOKIE["user_login"])) {
-            setcookie("user_login", $a, time() + 3600);
+            setcookie("user_login", $a[0], time() + 3600);
         }
         
     } else {
@@ -75,8 +79,6 @@ ob_end_flush();
         if(isset($_COOKIE["user_login"])) {
             if($_COOKIE["user_login"] == "admin") {
                 include 'admin.php';
-            } elseif($_COOKIE["user_login"] == "admin1") {
-                include 'user.php';
             } else {
                 include 'user.php';
             }

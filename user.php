@@ -6,8 +6,8 @@
     <label for="event_date">Дата мероприятия
         <input type="date" name="event_date" id="date">
     </label>
-    <label for="amount">Количество человек
-        <input type="text" name="amount" id="amount" placeholder="200">
+    <label for="participants_count">Количество человек
+        <input type="text" name="participants_count" id="participants_count" placeholder="200">
     </label>
     <input type="submit" value="Отправить">
 </form>

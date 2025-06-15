@@ -1,6 +1,6 @@
 <?php
 $host = 'localhost';
-$db = 'platform';
+$db = 'event_management';
 $user = 'root';
 $pass = '';
 $link = mysqli_connect($host, $user, $pass, $db) or die('Невозможно связаться с БД! '.mysqli_error($link));
@@ -39,12 +39,13 @@ function dbTableResult($query) {
                 $username = $_GET["username"];
                 $password_first = $_GET["password_first"];
                 $password_repeat = $_GET["password_repeat"];
+                $phone_number = $_GET["phone"];
                 if($password_first == $password_repeat) {
                     $a = dbTableResult("SELECT username FROM users WHERE username = '$username'");
                     if($a == $username) {
                         print_r("Такой пользователь уже есть!");
                     } else {
-                        dbTableResult("INSERT INTO users (username, password) VALUES ('$username', '$password_first')");
+                        dbTableResult("INSERT INTO users (username, password, phone_number) VALUES ('$username', '$password_first', '$phone_number')");
                     }
                 }
             }
