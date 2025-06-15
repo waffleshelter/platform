@@ -15,18 +15,17 @@
     </thead>
     <tbody>
         <?php 
-        $events_data = dbTableResult("SELECT * FROM events"); 
-        $user_data = dbTableResult("SELECT * FROM users WHERE user_id = '$events_data[3]'");
-        // print_r($events_data);
-        // print_r($user_data);
-        $result = array_merge($events_data, $user_data);
-        unset($result["3"]);
-        unset($result["5"]);
-        print_r($result);
-        foreach($result as $el) {
-            print_r("<td>".$el."</td>");
-            
-        }
+// Вывод в панель администратора
+        dbTableResult("SELECT 
+        e.event_name,
+        e.event_date,
+        e.participants_count,
+        u.username,
+        u.phone_number
+    FROM 
+        events e
+    JOIN 
+        users u ON e.organizer_id = u.user_id");
         ?>
     </tbody>
 </table>

@@ -17,8 +17,6 @@ function dbTableResult($query) {
                 // Проверка на случай авторизации
                 if($tbl["username"] != "") {
                     return [$tbl["username"], $tbl["user_id"]];
-                } elseif($tbl["user_id" != ""]) {
-                    return $tbl["user_id"];
                 }
                 // Вывод для таблицы администратора
                 print_r("<tr><td>".$tbl['event_name']."</td><td>".$tbl['event_date']."</td><td>".$tbl['participants_count']."</td><td>".$tbl['username']."</td><td>".$tbl['phone_number']."</td></tr>");

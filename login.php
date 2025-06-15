@@ -1,5 +1,5 @@
 <?php 
-setcookie("user_login", "");
+// setcookie("user_login", "");
 $host = 'localhost';
 $db = 'event_management';
 $user = 'root';
@@ -16,14 +16,17 @@ function dbTableResult($query) {
     } elseif(is_int($result) == TRUE) {
         return $result;
     } else {
+        $tbl = mysqli_fetch_array($result);
+        if(isset($tbl["username"]) and empty($tbl["event_name"])) {
+            return [$tbl["username"], $tbl["user_id"], $tbl["phone_number"]];
+        } elseif(isset($tbl["username"]) and isset($tbl["event_name"])) {
+            print_r("<tr><td>".$tbl["event_name"]."</td><td>".$tbl["event_date"]."</td><td>".$tbl["participants_count"]."</td><td>".$tbl["username"]."</td><td>".$tbl["phone_number"]."</td></tr>");
             while($tbl = mysqli_fetch_array($result)) {
-                // Проверка на случай авторизации
-                if($tbl["username"] != "") {
-                    return [$tbl["username"], $tbl["user_id"], $tbl["phone_number"]];
-                }
-                // Вывод для таблицы администратора
-                return [$tbl['event_name'], $tbl['event_date'], $tbl['participants_count'], $tbl['organizer_id']];
+                print_r("<tr><td>".$tbl["event_name"]."</td><td>".$tbl["event_date"]."</td><td>".$tbl["participants_count"]."</td><td>".$tbl["username"]."</td><td>".$tbl["phone_number"]."</td></tr>");
             }
+        } else {
+            // return [$tbl['event_name'], $tbl['event_date'], $tbl['participants_count'], $tbl['organizer_id']];
+        }
         }
         
 }

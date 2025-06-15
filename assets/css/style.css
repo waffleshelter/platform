@@ -202,5 +202,5 @@ td {
     background-color: var(--color__bg);
     color: var(--color__text);
     padding: 2%;
-    border-radius: 5px;
+    border-radius: 5px 5px 0 0;
 }
