@@ -1,7 +1,3 @@
-<?php 
-// $result = 
-?>
-<?php print_r($result); ?>
 <table>
     <h1>Панель администратора</h1>
     <thead>
