@@ -30,9 +30,12 @@ function dbTableResult($query) {
         }
         
 }
-    
 
-   
+if($_GET["exit"]) {
+    setcookie("user_login", "");
+}
+
+
 ob_start();
 if(!empty($_GET)) {
     
